@@ -15,6 +15,10 @@ function SortingMachine() {
 
   const handleSubmit = event => {
     event.preventDefault();
+    
+    if (number === "") {
+        return;
+    }
 
     const numberArray = number.split(",").filter((element) => element !== "").map((e) => Number(e))
     setAscendedList(quickSort(numberArray));
@@ -40,7 +44,9 @@ function SortingMachine() {
     <Wrapper>
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="1,3,6,20" value={number} onChange={e => handleChange(e)} />
-        <button type="submit">START</button>
+        <Button isWait={isWait} disabled={isWait} type="submit">
+            {isWait ? 'Plesse Wait...' : 'START'}
+        </Button>
       </form>
       <div>
         <p>ascended-list</p> <br />
@@ -70,16 +76,6 @@ const Wrapper = styled.div`
       border: none;
       background-color: gray;
     }
-    & button {
-      cursor: pointer;
-      background-color: #00b800;
-      border: 0;
-      padding: 10px 0;
-      margin: 5px 0;
-      text-align: center;
-      color: #000;
-      font-weight: bold;
-    }
   }
   & div {
     min-width: 300px;
@@ -102,5 +98,16 @@ const Wrapper = styled.div`
     }
   }
 `;
+
+const Button = styled.button`
+    cursor: ${props => props.isWait ? 'default' : 'pointer'};
+    background-color: ${props => props.isWait ? '#FFD643' : '#00b800'};
+    border: 0;
+    padding: 10px 0;
+    margin: 5px 0;
+    text-align: center;
+    color: #000;
+    font-weight: bold;
+`
 
 export { SortingMachine };
