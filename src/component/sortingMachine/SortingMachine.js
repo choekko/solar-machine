@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { quickSort } from "../../utils/quickSort";
+import { INVALID_MESSAGE, WAITING_MESSAGE, EMPTY_MESSAGE  } from "../../utils/constants";
 import styled from "styled-components";
 
 function SortingMachine() {
@@ -16,23 +17,29 @@ function SortingMachine() {
   const handleSubmit = event => {
     event.preventDefault();
 
+    let errorMessage = null;
+
     if (number === "") {
-        setAscendedList(["정렬할 숫자들을 입력해주세요!"]);
-        setDescendedList(["정렬할 숫자들을 입력해주세요!"]);
-        return ;
+        errorMessage = EMPTY_MESSAGE;
     }
 
-    let isInvalid = false;
     const numberArray = number.split(",").filter((element) => element !== "").map((e) => {
-        if (isNaN(e)) {
-            isInvalid = true;
+        if (!errorMessage && isNaN(e)) {
+            errorMessage = INVALID_MESSAGE;
         }
         return Number(e)
     })
-    setAscendedList(isInvalid ? ["형식에 맞는 값을 넣어주세요!"] : quickSort(numberArray));
+
+    if (errorMessage) {
+        setAscendedList([errorMessage]);
+        setDescendedList([errorMessage]);
+        return;
+    }
+
+    setAscendedList(quickSort(numberArray));
     setIsWait(true);
     setTimeout(() => {
-      setDescendedList(isInvalid ? ["형식에 맞는 값을 넣어주세요!"] : quickSort(numberArray, true));
+      setDescendedList(quickSort(numberArray, true));
       setIsWait(false);
     }, 3000);
   };
@@ -53,7 +60,7 @@ function SortingMachine() {
       <form onSubmit={handleSubmit}>
         <input disabled={isWait} type="text" placeholder="1,3,6,20" value={number} onChange={e => handleChange(e)} />
         <Button isWait={isWait} disabled={isWait} type="submit">
-            {isWait ? 'Plesse Wait...' : 'START'}
+            {isWait ? WAITING_MESSAGE : 'START'}
         </Button>
       </form>
       <div>
