@@ -15,16 +15,22 @@ function SortingMachine() {
 
   const handleSubmit = event => {
     event.preventDefault();
-    
+
     if (number === "") {
         return;
     }
 
-    const numberArray = number.split(",").filter((element) => element !== "").map((e) => Number(e))
-    setAscendedList(quickSort(numberArray));
+    let flag = false;
+    const numberArray = number.split(",").filter((element) => element !== "").map((e) => {
+        if (isNaN(e)) {
+            flag = true;
+        }
+        return Number(e)
+    })
+    setAscendedList(flag ? ["형식에 맞는 값을 넣어주세요!"] : quickSort(numberArray));
     setIsWait(true);
     setTimeout(() => {
-      setDescendedList(quickSort(numberArray, true));
+      setDescendedList(flag ? ["형식에 맞는 값을 넣어주세요!"] : quickSort(numberArray, true));
       setIsWait(false);
     }, 3000);
   };
