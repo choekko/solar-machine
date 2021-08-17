@@ -16,10 +16,11 @@ function SortingMachine() {
   const handleSubmit = event => {
     event.preventDefault();
 
-    setAscendedList(quickSort(number.split(",").filter((element, i) => element !== "").map((e) => Number(e))));
+    const numberArray = number.split(",").filter((element) => element !== "").map((e) => Number(e))
+    setAscendedList(quickSort(numberArray));
     setIsWait(true);
     setTimeout(() => {
-      setDescendedList(quickSort(number.split(",").filter((element, i) => element !== "").map((e) => Number(e)), true));
+      setDescendedList(quickSort(numberArray, true));
       setIsWait(false);
     }, 3000);
   };
