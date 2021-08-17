@@ -42,10 +42,12 @@ const quickSort = (array, reverseFlag = 0) => {
         pl += 1;
         pr -= 2;
         while (pl <= pr) {
-            while ((reverseFlag == 0 && targetArray[pl] < pivot) || (reverseFlag == 1 && targetArray[pl] > pivot)) {
+            while ((reverseFlag == 0 && targetArray[pl] < pivot) 
+                    || (reverseFlag == 1 && targetArray[pl] > pivot)) {
                 pl++;
             }
-            while ((reverseFlag == 0 && targetArray[pr] > pivot) || (reverseFlag == 1 && targetArray[pr] < pivot)) {
+            while ((reverseFlag == 0 && targetArray[pr] > pivot) 
+                    || (reverseFlag == 1 && targetArray[pr] < pivot)) {
                 pr--;
             }
             if (pl <= pr) {
