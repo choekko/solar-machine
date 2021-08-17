@@ -20,17 +20,17 @@ function SortingMachine() {
         return;
     }
 
-    let flag = false;
+    let isInvalid = false;
     const numberArray = number.split(",").filter((element) => element !== "").map((e) => {
         if (isNaN(e)) {
-            flag = true;
+            isInvalid = true;
         }
         return Number(e)
     })
-    setAscendedList(flag ? ["형식에 맞는 값을 넣어주세요!"] : quickSort(numberArray));
+    setAscendedList(isInvalid ? ["형식에 맞는 값을 넣어주세요!"] : quickSort(numberArray));
     setIsWait(true);
     setTimeout(() => {
-      setDescendedList(flag ? ["형식에 맞는 값을 넣어주세요!"] : quickSort(numberArray, true));
+      setDescendedList(isInvalid ? ["형식에 맞는 값을 넣어주세요!"] : quickSort(numberArray, true));
       setIsWait(false);
     }, 3000);
   };
@@ -49,7 +49,7 @@ function SortingMachine() {
   return (
     <Wrapper>
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="1,3,6,20" value={number} onChange={e => handleChange(e)} />
+        <input disabled={isWait} type="text" placeholder="1,3,6,20" value={number} onChange={e => handleChange(e)} />
         <Button isWait={isWait} disabled={isWait} type="submit">
             {isWait ? 'Plesse Wait...' : 'START'}
         </Button>
