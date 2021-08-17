@@ -56,11 +56,11 @@ function SortingMachine() {
       </form>
       <div>
         <p>ascended-list</p> <br />
-        {ascendedList.map(item => (ascendedList.indexOf(item) !== ascendedList.length - 1 ? item + "," : item + ""))}
+        {ascendedList.map((item, index, array) => (index !== array.length - 1 ? item.toString() + "," : item.toString() + ""))}
       </div>
       <div>
         <p>descended-list</p> <br />
-        {isWait ? <span>{counter}</span>: descendedList.map(item => (descendedList.indexOf(item) !== descendedList.length - 1 ? item + "," : item + ""))}
+        {isWait ? <span>{counter}</span>: descendedList.map((item, index, array) => (index !== array.length - 1 ? item.toString() + "," : item.toString() + ""))}
       </div>
     </Wrapper>
   );
