@@ -17,7 +17,9 @@ function SortingMachine() {
     event.preventDefault();
 
     if (number === "") {
-        return;
+        setAscendedList(["정렬할 숫자들을 입력해주세요!"]);
+        setDescendedList(["정렬할 숫자들을 입력해주세요!"]);
+        return ;
     }
 
     let isInvalid = false;
