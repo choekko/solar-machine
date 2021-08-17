@@ -85,6 +85,8 @@ const Wrapper = styled.div`
   }
   & div {
     min-width: 300px;
+    max-width: 700px;
+    word-break : break-word;
     border-radius: 15px;
     display: flex;
     justify-content: center;
