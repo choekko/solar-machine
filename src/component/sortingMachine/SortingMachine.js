@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { ascendingSort, descendingSort } from "../../utils/Algorithm";
+import { quickSort } from "../../utils/quickSort";
 import styled from "styled-components";
 
 function SortingMachine() {
@@ -16,10 +16,10 @@ function SortingMachine() {
   const handleSubmit = event => {
     event.preventDefault();
 
-    setAscendedList(ascendingSort(number.split(",").filter((element, i) => element !== "")));
+    setAscendedList(quickSort(number.split(",").filter((element, i) => element !== "").map((e) => Number(e))));
     setIsWait(true);
     setTimeout(() => {
-      setDescendedList(descendingSort(number.split(",").filter((element, i) => element !== "")));
+      setDescendedList(quickSort(number.split(",").filter((element, i) => element !== "").map((e) => Number(e)), true));
       setIsWait(false);
     }, 3000);
   };
@@ -47,7 +47,7 @@ function SortingMachine() {
       </div>
       <div>
         <p>descended-list</p> <br />
-        {isWait ? counter : descendedList.map(item => (descendedList.indexOf(item) !== descendedList.length - 1 ? item + "," : item + ""))}
+        {isWait ? <span>{counter}</span>: descendedList.map(item => (descendedList.indexOf(item) !== descendedList.length - 1 ? item + "," : item + ""))}
       </div>
     </Wrapper>
   );
@@ -94,6 +94,10 @@ const Wrapper = styled.div`
     color: #00b800;
     & p {
       font-size: 12px;
+    }
+    & span {
+        color: #FFD643;
+        font-size: 15px;
     }
   }
 `;
